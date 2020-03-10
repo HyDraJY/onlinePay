@@ -29,7 +29,6 @@
         </div>
       </div>
     </section>
-
     <button class="submit" @click="checkoutClick">checkout now</button>
   </div>
 </template>
@@ -56,7 +55,10 @@ export default {
       });
     },
     paymentClick() {
-      this.$router.push({ name: "Payment" });
+      this.$router.push({
+        name: "Payment",
+        params: { asset: this.asset }
+      });
     },
     checkoutClick() {
       if (this.asset !== 0) this.$router.push({ name: "Result" });

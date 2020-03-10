@@ -4,11 +4,12 @@
       <p class="description">pay with Crypto pay</p>
     </div>
     <form class="form">
-      <p>email</p>
-      <input type="email" v-model="email" />
+      <p>name</p>
+      <input type="text" v-model="name" />
       <p>password</p>
-      <input type="text" v-model="password" />
-      <button class="submit" @click.prevent="login">LOGIN</button>
+      <input type="text" />
+      <button class="submit" @click="logoutHandler" v-if="status">LOGOUT</button>
+      <button class="submit" @click="login" v-else>LOGIN WITH FACEBOOK</button>
       <div class="forgot">
         <span>forgot your password?</span>
       </div>
@@ -20,17 +21,54 @@
 export default {
   data() {
     return {
+      name: "",
       email: "",
-      password: ""
+      id: null
     };
   },
-  methods: {
-    login() {
-      if (this.email.length && this.password.length)
-        this.$router.push({ name: "Checkout" });
-      else {
-        alert("請填入正確資料");
+  computed: {
+    status() {
+      return this.$store.state.status === "connected" ? true : false;
+    }
+  },
+  mounted() {
+    FB.getLoginStatus(res => {
+      this.$store.commit("CHANGE_STATUS", res.status);
+      if (this.status === "connected") {
+        this.setProfile();
       }
+    });
+  },
+  methods: {
+    async getPrivacy() {
+      await this.$store.dispatch("GET_PRIVACY");
+      this.$router.push({ name: "Checkout" });
+    },
+    setProfile() {
+      FB.api("/me?fields=name,id,email", res => {
+        this.$store.commit("SET_INFOs", res);
+      });
+    },
+    login() {
+      FB.login(
+        res => {
+          this.$store.commit("CHANGE_STATUS", res.status);
+          this.setProfile();
+          this.getPrivacy();
+        },
+        { scope: "email, public_profile", return_scopes: true }
+      );
+    },
+    logoutHandler() {
+      FB.logout(res => {
+        this.$store.commit("SET_PRIVACY", {});
+        this.$store.commit("SET_INFOs", res);
+      });
+      FB.getLoginStatus(res => {
+        this.$store.commit("CHANGE_STATUS", res.status);
+      });
+      console.log("logged out!!");
+      this.$router.push("/");
     }
   }
 };
