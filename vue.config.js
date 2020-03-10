@@ -1,4 +1,5 @@
 // vue.config.js
+const fs = require("fs");
 module.exports = {
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')
@@ -12,5 +13,11 @@ module.exports = {
     svgRule
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
+  },
+  devServer: {
+    https: {
+      key: fs.readFileSync(`./src/assets/localhost-key.pem`),
+      cert: fs.readFileSync(`./src/assets/localhost.pem`)
+    }
   }
 }

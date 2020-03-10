@@ -33,12 +33,6 @@ export default {
     ETHLogo,
     BTCLogo
   },
-  props: {
-    asset: {
-      type: Number,
-      required: true
-    }
-  },
   methods: {
     clickHandler(index) {
       this.$emit("update:asset", index);
