@@ -46,6 +46,13 @@ export default {
       this.$router.push({ name: "Checkout" });
     },
     setProfile() {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+      console.log("setProfile()");
+>>>>>>> da7442fe9b204bce7bfb3f68685b08b50554bafc
+>>>>>>> 000cbda8218fe0e55a47f34eeedfda0632a1b045
       FB.api("/me?fields=name,id,email", res => {
         this.$store.commit("SET_INFOs", res);
       });
