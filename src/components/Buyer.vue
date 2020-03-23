@@ -30,14 +30,14 @@
         </div>
       </div>
       <label>address*</label>
-      <input type="text" :placeholder="address" />
+      <input type="text" :placeholder="address" v-model="myAddress" />
     </section>
     <div class="btn-group">
       <div class="item">
         <button class="submit cancel" @click="back">cancel</button>
       </div>
       <div class="item">
-        <button class="submit" @click="back">continue</button>
+        <button class="submit" @click="continueHandler">continue</button>
       </div>
     </div>
   </div>
@@ -46,11 +46,24 @@
 <script>
 export default {
   name: "buyer",
+  data() {
+    return {
+      myAddress: ""
+    };
+  },
+  mounted() {
+    this.myAddress = this.address;
+  },
   methods: {
     back() {
       this.$router.push({ name: "Checkout" });
     },
-    changeNameHandler() {}
+    continueHandler() {
+      this.$router.push({
+        name: "Checkout",
+        params: { address: this.myAddress }
+      });
+    }
   },
   computed: {
     name() {

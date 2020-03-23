@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       name: "",
-      address: "407, Zxxx Street, Tanzi, Taichung Taiwan",
+      address: "",
       asset: this.$route.params.asset || 0
     };
   },
@@ -50,6 +50,7 @@ export default {
   },
   mounted() {
     this.name = this.$store.state.name;
+    this.address = this.$route.params.address || this.$store.state.address;
   },
   methods: {
     shipToClick() {
