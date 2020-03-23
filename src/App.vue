@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">CryptoPay</router-link>|
+      <!-- <router-link to="/">CryptoPay</router-link>|
       <router-link :to="{name:'Result'}">Result</router-link>|
       <router-link :to="{name:'Login'}">Login</router-link>|
       <router-link to="/view/checkout">Checkout</router-link>|
       <router-link :to="{name:'Buyer'}">Buyer</router-link>|
-      <router-link :to="{name:'Payment'}">Payment</router-link>|
+      <router-link :to="{name:'Payment'}">Payment</router-link>|-->
       <a href="javascript:;" @click="logoutHandler" v-if="loginStatus">Logout</a>
     </div>
     <router-view />
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+/*eslint-disable */
 import store from "@/store";
 export default {
   computed: {
@@ -32,7 +33,7 @@ export default {
       FB.AppEvents.logPageView();
 
       FB.getLoginStatus(res => {
-        console.log("res", res); // 這裡可以得到 fb 回傳的結果
+        // console.log("res", res); // 這裡可以得到 fb 回傳的結果
         store.commit("CHANGE_STATUS", res.status);
       });
     };
@@ -71,6 +72,11 @@ export default {
 
   #nav a.router-link-exact-active {
     color: #42b983;
+  }
+
+  #nav a:hover {
+    font-weight: bold;
+    color: #fa0;
   }
 }
 </style>

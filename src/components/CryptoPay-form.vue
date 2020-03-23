@@ -42,7 +42,8 @@ export default {
   },
   methods: {
     async getPrivacy() {
-      await this.$store.dispatch("GET_PRIVACY");
+      let result = await this.$store.dispatch("GET_PRIVACY");
+      this.$store.commit("SET_PRIVACY", result.data);
       this.$router.push({ name: "Checkout" });
     },
     setProfile() {

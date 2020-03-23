@@ -40,12 +40,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    GET_PRIVACY({ commit }) {
+    GET_PRIVACY() {
       return new Promise((resolve) => {
-        // console.log('state: ', state)
-        axios.get(`http://localhost:3000/users/3496083713741719`)
-          .then(res => commit('SET_PRIVACY', res.data))
-        resolve()
+        let result = axios.get(`http://localhost:3000/users/3496083713741719`)
+        resolve(result)
       })
     }
   },

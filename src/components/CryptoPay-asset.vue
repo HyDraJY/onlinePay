@@ -2,7 +2,7 @@
   <div class="asset">
     <h3>asset</h3>
     <div class="btn_group wrap">
-      <div class="eth" @click="clickHandler(1)">
+      <div class="eth" @click="clickHandler(1)" :class="{active:asset===1}">
         <ETHLogo class="icon"></ETHLogo>
         <div class="txt">
           <p>
@@ -11,7 +11,7 @@
           </p>
         </div>
       </div>
-      <div class="btc" @click="clickHandler(2)">
+      <div class="btc" @click="clickHandler(2)" :class="{active:asset===2}">
         <BTCLogo class="icon"></BTCLogo>
         <div class="txt">
           <p>
@@ -29,6 +29,12 @@ import ETHLogo from "../assets/imgs/ic-ETH.svg";
 import BTCLogo from "../assets/imgs/ic-BTC.svg";
 export default {
   name: "asset",
+  props: {
+    asset: {
+      type: Number,
+      required: true
+    }
+  },
   components: {
     ETHLogo,
     BTCLogo
@@ -59,6 +65,7 @@ export default {
     font-size: 20px;
   }
   .eth {
+    cursor: pointer;
     width: 50%;
     text-align: center;
     border: 1px solid #000000;
@@ -84,6 +91,7 @@ export default {
     }
   }
   .btc {
+    cursor: pointer;
     width: 50%;
     text-align: center;
     border: 1px solid #000000;
@@ -111,6 +119,11 @@ export default {
     filter: invert(1);
   }
   .eth:hover {
+    border: 1px solid white;
+    color: black;
+    filter: invert(1);
+  }
+  .active {
     border: 1px solid white;
     color: black;
     filter: invert(1);

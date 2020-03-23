@@ -35,17 +35,21 @@
 
 <script>
 import Asset from "../components/CryptoPay-asset";
+// import axios from "axios";
 export default {
   name: "cryptopay-checkout",
   data() {
     return {
-      name: "Joe Chen",
+      name: "",
       address: "407, Zxxx Street, Tanzi, Taichung Taiwan",
-      asset: 0
+      asset: this.$route.params.asset || 0
     };
   },
   components: {
     Asset
+  },
+  mounted() {
+    this.name = this.$store.state.name;
   },
   methods: {
     shipToClick() {

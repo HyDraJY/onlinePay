@@ -4,7 +4,7 @@
       <i class="material-icons back" @click="back">arrow_back</i>
       <span class="back" @click="back">edit payment</span>
     </h2>
-    <Asset class="asset" />
+    <Asset class="asset" :asset.sync="myAsset" />
     <section class="delivery">
       <div class="wrap">
         <div class="item">
@@ -52,24 +52,37 @@
         </div>
       </div>
     </section>
-    <ButtonGroup />
+    <div class="btn-group">
+      <div class="item">
+        <button class="submit cancel" @click="back">cancel</button>
+      </div>
+      <div class="item">
+        <button class="submit" @click="continueHandler">continue</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Asset from "../components/CryptoPay-asset";
 import qrcode from "../assets/imgs/ic-qrcode.svg";
-import ButtonGroup from "./Crypto-Pay-btnGroup";
 export default {
   name: "payment",
   components: {
     Asset,
-    qrcode,
-    ButtonGroup
+    qrcode
+  },
+  data() {
+    return {
+      myAsset: this.$route.params.asset
+    };
   },
   methods: {
     back() {
       this.$router.push({ name: "Checkout" });
+    },
+    continueHandler() {
+      this.$router.push({ name: "Checkout", params: { asset: this.myAsset } });
     }
   }
 };
@@ -153,6 +166,7 @@ export default {
       margin-bottom: 8px;
     }
     .item {
+      cursor: pointer;
       width: 156px;
       box-sizing: border-box;
       border: 1px solid black;
@@ -182,6 +196,32 @@ export default {
       .qrcode {
         display: none;
       }
+    }
+  }
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+    .item {
+      width: 224px;
+    }
+    .submit {
+      cursor: pointer;
+      width: 100%;
+      height: 54px;
+      border-radius: 4px;
+      background-color: #6200ff;
+      color: white;
+      font-family: "Open Sans";
+      font-size: 16px;
+      font-weight: bold;
+      padding: 0;
+      border: none;
+      text-transform: uppercase;
+    }
+    .cancel {
+      background-color: white;
+      color: black;
+      border: 1px solid black;
     }
   }
 }
