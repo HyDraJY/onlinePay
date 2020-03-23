@@ -14,6 +14,7 @@
 </template>
 
 <script>
+/*eslint-disable */
 import store from "@/store";
 export default {
   computed: {
@@ -32,7 +33,7 @@ export default {
       FB.AppEvents.logPageView();
 
       FB.getLoginStatus(res => {
-        console.log("res", res); // 這裡可以得到 fb 回傳的結果
+        // console.log("res", res); // 這裡可以得到 fb 回傳的結果
         store.commit("CHANGE_STATUS", res.status);
       });
     };

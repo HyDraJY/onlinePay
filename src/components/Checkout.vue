@@ -41,7 +41,7 @@ export default {
     return {
       name: "Joe Chen",
       address: "407, Zxxx Street, Tanzi, Taichung Taiwan",
-      asset: 0
+      asset: this.$route.params.asset || 0
     };
   },
   components: {
